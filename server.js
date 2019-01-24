@@ -1,10 +1,27 @@
 'use strict';
 
-const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 // Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const {
+  MONGO_HOSTNAME,
+  MONGO_DATABASE_NAME
+} = process.env;
+
+// mongoose connection
+mongoose.Promise = global.Promise;
+mongoose.connect(`mongodb://${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME}`, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+mongoose.connection.on('error', () => {
+  console.log('MongoDB connection error. Please make sure MongoDB is running.');
+  process.exit();
+});
 
 // App
 const app = express();
@@ -12,5 +29,9 @@ app.get('/', (req, res) => {
   res.send('Hello World\n');
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+// bodyparser setup
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(morgan('common'));
+
+export default app;
