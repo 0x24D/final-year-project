@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import mongoose from 'mongoose';
 import app from '../server';
 
-import { BlogPostSchema } from '../../src/models/blogPostModel';
+import { BlogPostSchema } from '../src/models/blogPostModel';
 
 const chaiHttp = require('chai-http');
 

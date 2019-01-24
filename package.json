@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon ./bin/www --exec babel-node -e js",
+    "test": "mocha ./test --require babel-register --exit"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/0x24D/final-year-project.git"
@@ -24,6 +27,9 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.9"
   }
 }
