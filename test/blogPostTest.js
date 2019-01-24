@@ -19,18 +19,15 @@ describe('Blog post tests', () => {
   var post2Id;
   beforeEach((done) => {
     const newPost1 = new BlogPost({
-      title: 'testFile1.txt',
-      body: '',
-      tags: [],
+      title: 'Post 1',
+      body: 'This is the first post',
+      tags: ['post', 'one', 'first'],
     });
     post1Id = String(newPost1._id);
     const newPost2 = new BlogPost({
-      name: 'testFile2.pdf',
-      data: [{
-        title: 'This is the second test file',
-        author: 'test user',
-        tags: ['test', 'pdf'],
-      }],
+      title: 'Post 2',
+      body: 'This is the second post',
+      tags: ['post', 'two', 'second'],
     });
     post2Id = String(newPost2._id);
     BlogPost.insertMany([newPost1, newPost2], () => {
