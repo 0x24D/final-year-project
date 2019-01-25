@@ -1,7 +1,6 @@
-version: '2.3'
+version: '2.4'
 
 services:
-
   node:
     build:
       context: .
@@ -39,9 +38,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-    # healthcheck:
-    #   disable: true
-
+    healthcheck:
+      disable: true
   mongo:
     image: mongo
     ports:
@@ -51,11 +49,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=root
       - MONGO_INITDB_DATABASE=blogPostDb
     healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/blogPostDb --quiet
+      test:  "[ `echo 'db.runCommand(\"ping\").ok' | mongo localhost/blogPostDb --quiet` ] && echo 0 || echo 1"
       interval: 5s
       start_period: 10s
       timeout: 4s
       retries: 3
-
 volumes:
   notused:

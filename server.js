@@ -8,18 +8,22 @@ import morgan from 'morgan';
 // Constants
 const {
   MONGO_HOSTNAME,
-  MONGO_DATABASE_NAME
+  MONGO_DATABASE_NAME,
+  MONGO_USERNAME,
+  MONGO_PASSWORD
 } = process.env;
 
 // mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME}`, {
+console.log(`Connecting to: mongodb://${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME} as user: ${MONGO_USERNAME}`)
+mongoose.connect(`mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME}?authSource=admin`, {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useFindAndModify: false,
+  useFindAndModify: false
 });
-mongoose.connection.on('error', () => {
+mongoose.connection.on('error', (err) => {
   console.log('MongoDB connection error. Please make sure MongoDB is running.');
+  console.log(err);
   process.exit();
 });
 
