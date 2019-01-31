@@ -8,12 +8,12 @@ import {
 } from '../controllers/blogPostController';
 
 const blogPostRoutes = (app) => {
-  app.route('/v1/posts')
+  app.route('/api/v1/posts')
     .get(getPosts)
     .post(addNewPost)
     .delete(deleteAllPosts);
 
-  app.route('/v1/posts/:id')
+  app.route('/api/v1/posts/:id')
     .get(getPostById)
     .put(updatePost)
     .delete(deletePost);

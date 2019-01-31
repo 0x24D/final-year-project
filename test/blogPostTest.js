@@ -40,9 +40,9 @@ describe('Blog post tests', () => {
     done();
   });
 
-  it('should list all posts on /v1/posts GET', (done) => {
+  it('should list all posts on /api/v1/posts GET', (done) => {
     chai.request(app)
-      .get('/v1/posts')
+      .get('/api/v1/posts')
       .end((err, res) => {
         res.should.have.status(200);
         res.should.be.json;
@@ -76,9 +76,9 @@ describe('Blog post tests', () => {
       });
   });
 
-  it('should add new post on /v1/posts POST', (done) => {
+  it('should add new post on /api/v1/posts POST', (done) => {
     chai.request(app)
-    .post('/v1/posts')
+    .post('/api/v1/posts')
     .set('content-type', 'application/x-www-form-urlencoded')
     .send({
       title: 'Post 3',
@@ -104,27 +104,27 @@ describe('Blog post tests', () => {
     });
   });
 
-  it('should error on /v1/posts PUT', (done) => {
+  it('should error on /api/v1/posts PUT', (done) => {
     chai.request(app)
-      .put('/v1/posts')
+      .put('/api/v1/posts')
       .end((err, res) => {
         res.should.have.status(404);
         done();
       });
   });
 
-  it('should delete all posts on /v1/posts DELETE', (done) => {
+  it('should delete all posts on /api/v1/posts DELETE', (done) => {
     chai.request(app)
-      .del('/v1/posts')
+      .del('/api/v1/posts')
       .end((err, res) => {
         res.should.have.status(204);
         done();
       });
   });
 
-  it('should list 1 post on /v1/posts/<id> GET', (done) => {
+  it('should list 1 post on /api/v1/posts/<id> GET', (done) => {
     chai.request(app)
-      .get(`/v1/posts/${post1Id}`)
+      .get(`/api/v1/posts/${post1Id}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.should.be.json;
@@ -145,18 +145,18 @@ describe('Blog post tests', () => {
       });
   });
 
-  it('should error on /v1/posts/<id> POST', (done) => {
+  it('should error on /api/v1/posts/<id> POST', (done) => {
     chai.request(app)
-      .post('/v1/posts/123')
+      .post('/api/v1/posts/123')
       .end((err, res) => {
         res.should.have.status(404);
         done();
       });
   });
 
-  it('should update 1 post on /v1/posts/<id> PUT', (done) => {
+  it('should update 1 post on /api/v1/posts/<id> PUT', (done) => {
     chai.request(app)
-      .put(`/v1/posts/${post1Id}`)
+      .put(`/api/v1/posts/${post1Id}`)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({
         title: 'Post 1 (updated)',
@@ -184,9 +184,9 @@ describe('Blog post tests', () => {
       });
   });
 
-  it('should delete 1 post on /v1/posts/<id> DELETE', (done) => {
+  it('should delete 1 post on /api/v1/posts/<id> DELETE', (done) => {
     chai.request(app)
-      .del(`/v1/posts/${post1Id}`)
+      .del(`/api/v1/posts/${post1Id}`)
       .end((err, res) => {
         res.should.have.status(204);
         done();
