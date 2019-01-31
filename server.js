@@ -1,25 +1,24 @@
-'use strict';
-
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import blogPostRoutes from './src/routes/blogPostRoutes';
 
 // Constants
 const {
   MONGO_HOSTNAME,
   MONGO_DATABASE_NAME,
   MONGO_USERNAME,
-  MONGO_PASSWORD
+  MONGO_PASSWORD,
 } = process.env;
 
 // mongoose connection
 mongoose.Promise = global.Promise;
-console.log(`Connecting to: mongodb://${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME} as user: ${MONGO_USERNAME}`)
+console.log(`Connecting to: mongodb://${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME} as user: ${MONGO_USERNAME}`);
 mongoose.connect(`mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DATABASE_NAME}?authSource=admin`, {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 mongoose.connection.on('error', (err) => {
   console.log('MongoDB connection error. Please make sure MongoDB is running.');
@@ -37,5 +36,7 @@ app.get('/', (req, res) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('common'));
+
+blogPostRoutes(app);
 
 export default app;
