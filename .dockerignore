@@ -1,3 +1,6 @@
+.babelrc
+.eslintignore
+.eslintrc.json
 .git
 node_modules
 npm-debug
