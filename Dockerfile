@@ -18,8 +18,8 @@ RUN npm i npm@latest -g
 
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt/server-deps
-COPY ./server/package.json ./server/package-lock.json* ./server-deps/
-RUN cd ./server-deps && npm install --no-optional && npm cache clean --force && cd -
+COPY ./server/package.json ./server/package-lock.json* ./
+RUN npm install --no-optional && npm cache clean --force
 ENV PATH /opt/server-deps/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200

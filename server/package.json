@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node -e js",
+    "start": "nodemon --exec babel-node -- ./bin/www",
     "test": "mocha --timeout 10000 --require babel-register --exit"
   },
   "repository": {
@@ -21,13 +21,13 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.0",
-    "morgan": "^1.9.1",
-    "vue": "^2.5.22"
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "eslint": "^5.12.1",
