@@ -8,7 +8,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
 # default to port 8080 for vue and 8081 for express
-ARG PORT=8081
+ARG PORT=8080
 ENV PORT $PORT
 EXPOSE $PORT
 
@@ -17,17 +17,17 @@ EXPOSE $PORT
 RUN npm i npm@latest -g
 
 # install dependencies first, in a different location for easier app bind mounting for local development
-WORKDIR /opt/server-deps
-COPY ./server/package.json ./server/package-lock.json* ./
+WORKDIR /opt
+COPY ./package.json ./package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
-ENV PATH /opt/server-deps/node_modules/.bin:$PATH
+ENV PATH /opt/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200
 #HEALTHCHECK --interval=30s CMD node healthcheck.js
 
 # copy in our source code last, as it changes the most
-WORKDIR /opt/
-COPY . /opt/
+WORKDIR /opt/client
+COPY . /opt/client
 
 # the official node image provides an unprivileged user as a security best practice
 # https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
@@ -37,4 +37,4 @@ USER node
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals
 # using node here is still more graceful stopping then npm with --init afaik
 # I still can't come up with a good production way to run with npm and graceful shutdown
-CMD [ "node", "./server/bin/www" ]
+CMD "npm run serve" 
