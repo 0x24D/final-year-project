@@ -28,9 +28,6 @@ mongoose.connection.on('error', (err) => {
 
 // App
 const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello World\n');
-});
 
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
