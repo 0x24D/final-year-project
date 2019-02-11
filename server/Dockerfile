@@ -7,8 +7,7 @@ FROM node:10
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-# default to port 8080 for vue and 8081 for express
-ARG PORT=8081
+ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT
 
