@@ -1,35 +1,32 @@
 <template>
-<div id="posts">
-  <div class="post" v-for="post in posts" :key="post._id">
-    <div>
-      <h5> <a :href="'/post/' + post._id">{{ post._id }}</a></h5>
-      <h3>{{ post.title }}</h3>
-        <!--{{ post.author }}--> <!-- TODO: implement author -->
-        <div id="tagList">
-          <ul>
-            <li v-for="tag in post.tags" :key="tag">
-              <small>{{ tag }}</small>
-            </li>
-          </ul>
-        </div>
-    </div>
+<div id="post">
+  <h3> {{ post.title }}</h3>
+  <p>{{ post.body }}</p>
+  <div id="tagList">
+    <ul>
+      <li v-for="tag in post.tags" :key="tag">
+        <small>{{ tag }}</small>
+      </li>
+    </ul>
   </div>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'ListOfPosts',
+  name: 'Post',
   data() {
     return {
-      posts: [],
+      post: {},
     };
   },
   created() {
+    const currentUrl = window.location.pathname.split('/');
+    const postId = currentUrl[2];
     this.$axios
-      .get('http://vm:8081/api/v1/posts') // Why vm and not express? *shrugs*
+      .get(`http://vm:8081/api/v1/posts/${postId}`) // Pass in ID as param
       .then((response) => {
-        this.posts = response.data;
+        this.post = response.data;
       })
       .catch((error) => {
         if (error.response) {
