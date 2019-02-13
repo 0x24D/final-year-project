@@ -1,17 +1,18 @@
 <template>
   <div id="app">
+    <NavigationBar/>
     <img alt="Vue logo" src="../../assets/logo.png">
-    <ListOfPosts/>
+    <h1> Welcome to the myBlog website. </h1>
   </div>
 </template>
 
 <script>
-import ListOfPosts from '../../components/ListOfPosts.vue';
+import NavigationBar from '../../components/NavigationBar.vue';
 
 export default {
   name: 'app',
   components: {
-    ListOfPosts,
+    NavigationBar,
   },
 };
 </script>
