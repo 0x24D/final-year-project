@@ -1,15 +1,19 @@
 <template>
-<div id="post">
-  <h1> {{ post.title }}</h1>
-  <p>{{ post.body }}</p>
-  <div id="tagList">
-    <ul>
-      <li v-for="tag in post.tags" :key="tag">
-        <small>{{ tag }}</small>
-      </li>
-    </ul>
+  <div id="post">
+    <h1> {{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+    <div id="tagList">
+      <ul>
+        <li v-for="tag in post.tags" :key="tag">
+          <small>{{ tag }}</small>
+        </li>
+      </ul>
+    </div>
+    <div id="buttons">
+      <button>Edit</button>
+      <button @click="deletePost(post._id)">Delete</button>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -46,6 +50,37 @@ export default {
         }
         console.log(error.config);
       });
+  },
+  methods: {
+    deletePost(postId) {
+      this.$axios
+        .delete(`http://vm:8081/api/v1/posts/${postId}`)
+        .then(() => {
+          this.post = [];
+          window.location.href = '/allPosts';
+        })
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        });
+    },
+    editPost() {
+
+    },
   },
 };
 </script>

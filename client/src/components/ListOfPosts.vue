@@ -1,17 +1,7 @@
 <template>
 <div id="posts">
   <div class="post" v-for="post in posts" :key="post._id">
-    <div>
-      <h5> <a :href="'/post/' + post._id">{{ post._id }}</a></h5>
-      <h3>{{ post.title }}</h3>
-        <!--{{ post.author }}--> <!-- TODO: implement author -->
-        <div id="tagList">
-          <ul>
-            <li v-for="tag in post.tags" :key="tag">
-              <small>{{ tag }}</small>
-            </li>
-          </ul>
-        </div>
+      <h3><a :href="'/post/' + post._id">{{ post.title }}</a></h3>
     </div>
   </div>
 </div>
