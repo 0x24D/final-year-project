@@ -35,7 +35,6 @@ app.use(cors());
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(methodOverride('_method'))
 
 blogPostRoutes(app);
 

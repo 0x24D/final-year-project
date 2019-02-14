@@ -54,9 +54,9 @@ export default {
       });
   },
   methods: {
-    newPostSubmit(postId, formData) {
+    editPostSubmit(postId, formData) {
       this.$axios
-        .post('http://vm:8081/api/v1/posts/', {
+        .put(`http://vm:8081/api/v1/posts/${postId}`, {
           title: formData.title,
           body: formData.body,
           tags: formData.tags,
