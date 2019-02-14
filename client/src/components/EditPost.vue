@@ -1,18 +1,20 @@
 <template>
-  <div id="post">
-    <h1> {{ post.title }}</h1>
-    <p>{{ post.body }}</p>
-    <div id="tagList">
-      <ul>
-        <li v-for="tag in post.tags" :key="tag">
-          <small>{{ tag }}</small>
-        </li>
-      </ul>
-    </div>
-    <div id="buttons">
-      <button @click="editPost(post._id)">Edit</button>
-      <button @click="deletePost(post._id)">Delete</button>
-    </div>
+  <div id="editPost">
+    <form v-on:submit.prevent>
+      Title:<br/>
+       <input type="text" name="title" v-model="post.title"><br/>
+       Body:<br/>
+       <textarea name="body" v-model="post.body"/><br/>
+       Tags:<br/>
+       <div id="tagMenu">
+         <div class="tag" v-for="(tag, index) in post.tags">
+           <input type="text" v-model="post.tags[index]"><br/>
+         </div>
+       </div>
+       <br/>
+       <br/>
+       <input type="submit" value="Edit" @click="editPostSubmit(post._id, post)">
+    </form>
   </div>
 </template>
 
@@ -52,12 +54,15 @@ export default {
       });
   },
   methods: {
-    deletePost(postId) {
+    newPostSubmit(postId, formData) {
       this.$axios
-        .delete(`http://vm:8081/api/v1/posts/${postId}`)
-        .then(() => {
-          this.post = [];
-          window.location.href = '/allPosts';
+        .post('http://vm:8081/api/v1/posts/', {
+          title: formData.title,
+          body: formData.body,
+          tags: formData.tags,
+        })
+        .then((response) => {
+          window.location.href = `/post/${postId}`;
         })
         .catch((error) => {
           if (error.response) {
@@ -77,10 +82,7 @@ export default {
           }
           console.log(error.config);
         });
-    },
-    editPost(postId) {
-      window.location.href = `/editPost/${postId}`;
-    },
+    }
   },
 };
 </script>

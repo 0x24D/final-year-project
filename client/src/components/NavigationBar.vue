@@ -1,6 +1,7 @@
 <template>
 <div id="navBar">
   <a href="/index">Home</a>
+  <a href="/newPost">Add New Post</a>
   <a href="/allPosts">View All Posts</a>
 </div>
 </template>

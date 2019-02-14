@@ -2,7 +2,6 @@
 <div id="posts">
   <div class="post" v-for="post in posts" :key="post._id">
       <h3><a :href="'/post/' + post._id">{{ post.title }}</a></h3>
-    </div>
   </div>
 </div>
 </template>
@@ -58,11 +57,5 @@ li {
 }
 a {
   color: #42b983;
-}
-#tagList ul{
-  list-style: none;
-}
-#tagList li{
-  display: inline;
 }
 </style>

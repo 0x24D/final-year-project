@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
+import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import blogPostRoutes from './src/routes/blogPostRoutes';
 
@@ -34,6 +35,7 @@ app.use(cors());
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'))
 
 blogPostRoutes(app);
 
