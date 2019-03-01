@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import blogPostRoutes from './src/routes/blogPostRoutes';
 
