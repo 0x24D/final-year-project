@@ -13,21 +13,21 @@ services:
     #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
     command: npm run serve
     ports:
-      - "8080:80"
+      - "8080:3000"
     volumes:
-      - ./client:/opt/client
+      - ./client:/opt/client/client
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
       # be saved on host for next build
       # docker-compose exec node npm install --save bower
-      - ./client/package.json:/opt/package.json
-      - ./client/package-lock.json:/opt/package-lock.json
+      - ./client/package.json:/opt/client/package.json
+      - ./client/package-lock.json:/opt/client/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our
-      # /opt/node_modules location. Thanks to PR from @brnluiz
-      - notused:/opt/client/node_modules
+      # /opt/client/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/client/client/node_modules
     environment:
       - NODE_ENV=development
     #depends_on:
@@ -47,21 +47,21 @@ services:
     #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
     command: ../node_modules/.bin/nodemon --exec ../node_modules/.bin/babel-node --presets=env -- ./bin/www
     ports:
-      - "8081:80"
+      - "8081:3000"
     volumes:
-      - ./server:/opt/server
+      - ./server:/opt/server/server
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
       # be saved on host for next build
       # docker-compose exec node npm install --save bower
-      - ./server/package.json:/opt/package.json
-      - ./server/package-lock.json:/opt/package-lock.json
+      - ./server/package.json:/opt/server/package.json
+      - ./server/package-lock.json:/opt/server/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our
-      # /opt/node_modules location. Thanks to PR from @brnluiz
-      - notused:/opt/server/node_modules
+      # /opt/server/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/server/server/node_modules
     environment:
       - NODE_ENV=development
       - MONGO_USERNAME=root

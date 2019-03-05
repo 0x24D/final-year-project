@@ -7,7 +7,7 @@ FROM node:10
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-ARG PORT=80
+ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT
 
@@ -16,21 +16,24 @@ EXPOSE $PORT
 RUN npm i npm@latest -g
 
 # install dependencies first, in a different location for easier app bind mounting for local development
-WORKDIR /opt
+# due to default /opt permissions we have to create the dir with root and change perms
+RUN mkdir /opt/server && chown node:node /opt/server
+WORKDIR /opt/server
+# the official node image provides an unprivileged user as a security best practice
+# but we have to manually enable it. We put it here so npm installs dependencies as the same
+# user who runs the app.
+# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
+USER node
 COPY ./package.json ./package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH /opt/server/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200
 #HEALTHCHECK --interval=30s CMD node healthcheck.js
 
 # copy in our source code last, as it changes the most
-WORKDIR /opt/server
-COPY . /opt/server
-
-# the official node image provides an unprivileged user as a security best practice
-# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
-USER root
+WORKDIR /opt/server/server
+COPY . .
 
 # if you want to use npm start instead, then use `docker run --init in production`
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals
