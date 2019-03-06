@@ -30,8 +30,8 @@ services:
       - notused:/opt/client/client/node_modules
     environment:
       - NODE_ENV=development
-    #depends_on:
-    #  node:
+    # depends_on:
+    #  express:
     #    condition: service_healthy
     healthcheck:
       disable: true

@@ -29,7 +29,7 @@ RUN npm install --no-optional && npm cache clean --force
 ENV PATH /opt/client/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200
-#HEALTHCHECK --interval=30s CMD node healthcheck.js
+HEALTHCHECK --interval=30s CMD node healthcheck.js
 
 # copy in our source code last, as it changes the most
 WORKDIR /opt/client/client

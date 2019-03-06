@@ -29,6 +29,10 @@ mongoose.connection.on('error', (err) => {
 // App
 const app = express();
 
+app.get('/status', (req, res) => {
+  res.send('Status page');
+});
+
 app.use(cors());
 
 // bodyparser setup
