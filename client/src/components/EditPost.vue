@@ -7,7 +7,7 @@
        <textarea name="body" v-model="post.body"/><br/>
        Tags:<br/>
        <div id="tagMenu">
-         <div class="tag" v-for="(tag, index) in post.tags">
+         <div class="tag" v-for="(tag, index) in post.tags" :key="post.tags[index]._id">
            <input type="text" v-model="post.tags[index]"><br/>
          </div>
        </div>
@@ -61,7 +61,7 @@ export default {
           body: formData.body,
           tags: formData.tags,
         })
-        .then((response) => {
+        .then(() => {
           window.location.href = `/post/${postId}`;
         })
         .catch((error) => {
@@ -82,7 +82,7 @@ export default {
           }
           console.log(error.config);
         });
-    }
+    },
   },
 };
 </script>
