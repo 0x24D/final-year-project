@@ -28,7 +28,7 @@ export default {
     const currentUrl = window.location.pathname.split('/');
     const postId = currentUrl[2];
     this.$axios
-      .get(`http://vm:8081/api/v1/posts/${postId}`)
+      .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
       .then((response) => {
         this.post = response.data;
       })
@@ -54,7 +54,7 @@ export default {
   methods: {
     deletePost(postId) {
       this.$axios
-        .delete(`http://vm:8081/api/v1/posts/${postId}`)
+        .delete(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
         .then(() => {
           this.post = [];
           window.location.href = '/allPosts';

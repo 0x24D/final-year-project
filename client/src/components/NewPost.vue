@@ -32,7 +32,7 @@ export default {
   methods: {
     newPostSubmit(postId, formData) {
       this.$axios
-        .post('http://vm:8081/api/v1/posts/', {
+        .post(`http://${window.location.hostname}:8081/api/v1/posts/`, {
           title: formData.title,
           body: formData.body,
           tags: formData.tags,

@@ -16,7 +16,7 @@ export default {
   },
   created() {
     this.$axios
-      .get('http://vm:8081/api/v1/posts') // Why vm and not express? *shrugs*
+      .get(`http://${window.location.hostname}:8081/api/v1/posts/`)
       .then((response) => {
         this.posts = response.data;
       })
