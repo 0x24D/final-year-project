@@ -6,7 +6,7 @@
 * Objective of the current project is to build a small website with couple of pages and containerise them. Containers need to take care of high availability in case any of the runtime goes down.
 
 ## Technologies used
-* Frontend (just return raw json?)
+* Frontend (Vue.js)
 * Middleware (Express)
 * Backend (MongoDB)
 
