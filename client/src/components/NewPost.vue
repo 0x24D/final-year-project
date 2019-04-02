@@ -1,18 +1,33 @@
 <template>
-  <div id="editPost">
-    <form v-on:submit.prevent>
-      Title:<br/>
-       <input type="text" name="title" v-model="post.title"><br/>
-       Body:<br/>
-       <textarea name="body" v-model="post.body"/><br/>
-       Tags:<br/>
-       <div id="tagMenu">
-         <input type="text" v-model="post.tags[0]"><br/>
-         <input type="text" v-model="post.tags[1]"><br/>
-       </div>
-       <br/>
-       <br/>
-       <input type="submit" value="Submit" @click="newPostSubmit(post._id, post)">
+  <div id="newPost">
+    <form novalidate class="md-layout" @submit.prevent>
+      <md-card class="md-layout-item md-size-50 md-small-size-100">
+        <md-card-header>
+          <div class="md-title">New Post</div>
+        </md-card-header>
+        <md-card-content>
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field>
+                <label>Title</label>
+                <md-input v-model="post.title"/>
+              </md-field>
+              <md-field>
+                 <label>Body</label>
+                 <md-textarea v-model="post.body"/>
+              </md-field>
+              <md-field>
+                 <label>Tags (comma-separated)</label>
+                 <md-input v-model="post.tags"/>
+              </md-field>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions>
+         <md-button class="md-primary md-raised"
+            @click="newPostSubmit(post._id, post)">Submit</md-button>
+        </md-card-actions>
+      </md-card>
     </form>
   </div>
 </template>
@@ -35,11 +50,10 @@ export default {
         .post(`http://${window.location.hostname}:8081/api/v1/posts/`, {
           title: formData.title,
           body: formData.body,
-          tags: formData.tags,
+          tags: formData.tags.split(','),
         })
         .then(() => {
           window.location.href = '/allPosts';
-          // window.location.href = `/post/${postId}`;
         })
         .catch((error) => {
           if (error.response) {
@@ -63,27 +77,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-#tagList ul{
-  list-style: none;
-}
-#tagList li{
-  display: inline;
-}
-</style>

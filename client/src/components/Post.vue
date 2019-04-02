@@ -1,18 +1,36 @@
 <template>
   <div id="post">
-    <h1> {{ post.title }}</h1>
-    <p>{{ post.body }}</p>
-    <div id="tagList">
-      <ul>
-        <li v-for="tag in post.tags" :key="tag">
-          <small>{{ tag }}</small>
-        </li>
-      </ul>
-    </div>
-    <div id="buttons">
-      <button @click="editPost(post._id)">Edit</button>
-      <button @click="deletePost(post._id)">Delete</button>
-    </div>
+    <form novalidate class="md-layout" @submit.prevent>
+      <md-card class="md-layout-item md-size-50 md-small-size-100">
+        <md-card-header>
+          <div class="md-title">Post {{ post._id }}</div>
+        </md-card-header>
+        <md-card-content>
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field>
+                <label>Title</label>
+                <md-input v-model="post.title" readonly/>
+              </md-field>
+              <md-field>
+                 <label>Body</label>
+                 <md-textarea v-model="post.body" readonly/>
+              </md-field>
+              <md-field>
+                 <label>Tags</label>
+                <!-- eslint-disable vue/valid-v-model -->
+                 <md-input v-model="post.tags.join(',')" readonly/>
+                 <!-- eslint-enable -->
+              </md-field>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions>
+         <md-button class="md-primary md-raised" @click="editPost(post._id)">Edit</md-button>
+         <md-button class="md-primary md-raised" @click="deletePost(post._id)">Delete</md-button>
+        </md-card-actions>
+      </md-card>
+    </form>
   </div>
 </template>
 
@@ -84,27 +102,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-#tagList ul{
-  list-style: none;
-}
-#tagList li{
-  display: inline;
-}
-</style>

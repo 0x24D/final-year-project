@@ -1,8 +1,18 @@
 <template>
 <div id="posts">
-  <div class="post" v-for="post in posts" :key="post._id">
-      <h3><a :href="'/post/' + post._id">{{ post.title }}</a></h3>
-  </div>
+  <template v-if="this.posts.length > 0">
+    <md-list>
+      <md-list-item v-for="post in posts" :key="post._id">
+        <span class="md-list-item-text"><a :href="'/post/' + post._id">{{ post.title }}</a></span>
+      </md-list-item>
+    </md-list>
+  </template>
+  <template v-else>
+  <md-empty-state
+      md-label="There are no posts to show"
+      md-description="Add the first post by clicking on 'Add New Post' above.">
+    </md-empty-state>
+  </template>
 </div>
 </template>
 
@@ -41,21 +51,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
