@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import ListOfPosts from '../../components/ListOfPosts.vue';
-import NavigationBar from '../../components/NavigationBar.vue';
+  import ListOfPosts from '../../components/ListOfPosts.vue'
+  import NavigationBar from '../../components/NavigationBar.vue'
 
-export default {
-  name: 'app',
-  components: {
-    ListOfPosts,
-    NavigationBar,
-  },
-};
+  export default {
+    name: 'app',
+    components: {
+      ListOfPosts,
+      NavigationBar
+    }
+  }
 </script>
