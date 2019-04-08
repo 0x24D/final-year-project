@@ -37,3 +37,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
+    volumes:
+        - mongo-data:/data/db
+
+volumes:
+  mongo-data:
