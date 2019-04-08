@@ -8,7 +8,7 @@
         <md-list>
           <md-list-item v-for="post in posts" :key="post._id">
             <span class="md-list-item-text">
-                <a :href="'/post/' + post._id">{{ post.title }}</a></span>
+                <a :href="'/view/' + post._id">{{ post.title }}</a></span>
           </md-list-item>
         </md-list>
       </template>

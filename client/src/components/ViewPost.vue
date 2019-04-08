@@ -22,7 +22,7 @@
               <md-field>
                 <label>Tags</label>
                 <!-- eslint-disable vue/valid-v-model -->
-                <md-input v-model="post.tags.join(',')" readonly/>
+                <md-input v-model="post.tags" readonly/>
                 <!-- eslint-enable -->
               </md-field>
             </div>
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'Post',
+  name: 'ViewPost',
   data() {
     return {
       post: {},
@@ -67,7 +67,7 @@ export default {
         .then(() => {
           this.post = [];
           this.showSpinner = false;
-          window.location.href = '/allPosts';
+          window.location.href = '/all';
         })
         .catch(() => {
           this.showSpinner = false;
@@ -75,7 +75,7 @@ export default {
         });
     },
     editPost(postId) {
-      window.location.href = `/editPost/${postId}`;
+      window.location.href = `/edit/${postId}`;
     },
   },
 };

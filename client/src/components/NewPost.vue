@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: 'Post',
+  name: 'NewPost',
   data() {
     return {
       post: {
@@ -55,7 +55,7 @@ export default {
         .post(`http://${window.location.hostname}:8081/api/v1/posts/`, {
           title: formData.title,
           body: formData.body,
-          tags: formData.tags.split(','),
+          tags: formData.tags ? formData.tags.split(',') : formData.tags,
         })
         .then(() => {
           window.location.href = '/allPosts';

@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: 'Post',
+  name: 'EditPost',
   data() {
     return {
       post: {},
@@ -63,10 +63,10 @@ export default {
         .put(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`, {
           title: formData.title,
           body: formData.body,
-          tags: formData.tags.split(','),
+          tags: formData.tags ? formData.tags.split(',') : formData.tags,
         })
         .then(() => {
-          window.location.href = `/post/${postId}`;
+          window.location.href = `/view/${postId}`;
         })
         .catch(() => {
           this.showSpinner = false;

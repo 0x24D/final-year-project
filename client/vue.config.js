@@ -9,11 +9,11 @@ module.exports = {
     port: 80,
     historyApiFallback: {
       rewrites: [
+        { from: /\/all/, to: '/all.html' },
+        { from: /\/edit/, to: '/edit.html' },
+        { from: /\/new/, to: '/new.html' },
+        { from: /\/view/, to: '/view.html' },
         { from: /\//, to: '/index.html' },
-        { from: /\/allPosts/, to: '/allPosts.html' },
-        { from: /\/editPost/, to: '/editPost.html' },
-        { from: /\/newPost/, to: '/newPost.html' },
-        { from: /\/post/, to: '/post.html' },
       ],
     },
   },
@@ -23,25 +23,25 @@ module.exports = {
       template: 'public/index.html',
       title: 'Index',
     },
-    allPosts: {
-      entry: './src/pages/allPosts/main.js',
+    all: {
+      entry: './src/pages/all/main.js',
       template: 'public/index.html',
       title: 'All Posts',
     },
-    editPost: {
-      entry: './src/pages/editPost/main.js',
+    edit: {
+      entry: './src/pages/edit/main.js',
       template: 'public/index.html',
       title: 'Edit Post',
     },
-    newPost: {
-      entry: './src/pages/newPost/main.js',
+    new: {
+      entry: './src/pages/new/main.js',
       template: 'public/index.html',
       title: 'New Post',
     },
-    post: {
-      entry: './src/pages/post/main.js',
+    view: {
+      entry: './src/pages/view/main.js',
       template: 'public/index.html',
-      title: 'Post',
+      title: 'View Post',
     },
   },
 };
