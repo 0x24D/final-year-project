@@ -9,7 +9,7 @@ module.exports = {
     port: 80,
     historyApiFallback: {
       rewrites: [
-        { from: /\/index/, to: '/index.html' },
+        { from: /\//, to: '/index.html' },
         { from: /\/allPosts/, to: '/allPosts.html' },
         { from: /\/editPost/, to: '/editPost.html' },
         { from: /\/newPost/, to: '/newPost.html' },
