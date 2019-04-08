@@ -1,8 +1,14 @@
 <template>
   <div id="app">
     <NavigationBar/>
-    <h1> Welcome to the myBlog website </h1>
-    <h3> Use the navigation bar above to add a new post or view all current posts </h3>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">Welcome to the myBlog website</div>
+      </md-card-header>
+      <md-card-content>
+        Use the navigation bar above to add a new post or view all current posts.
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 

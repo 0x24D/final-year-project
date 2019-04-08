@@ -1,5 +1,8 @@
 <template>
   <div id="post">
+    <template v-if="showSpinner">
+      <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+    </template>
     <form novalidate class="md-layout" @submit.prevent>
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
@@ -39,7 +42,8 @@
     name: 'Post',
     data() {
       return {
-        post: {}
+        post: {},
+        showSpinner: true,
       }
     },
     created() {
@@ -49,51 +53,25 @@
         .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
         .then(response => {
           this.post = response.data
+          this.showSpinner = false;
         })
-        .catch(error => {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message)
-          }
-          console.log(error.config)
+        .catch(() => {
+          this.$store.commit('setUserMessage', 'Error whilst retrieving post, please try again later.');
         })
     },
     methods: {
       deletePost(postId) {
+        this.showSpinner = true;
         this.$axios
           .delete(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
           .then(() => {
             this.post = []
+            this.showSpinner = false;
             window.location.href = '/allPosts'
           })
-          .catch(error => {
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log(error.response.data)
-              console.log(error.response.status)
-              console.log(error.response.headers)
-            } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-              // http.ClientRequest in node.js
-              console.log(error.request)
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message)
-            }
-            console.log(error.config)
+          .catch(() => {
+            this.showSpinner = false;
+            this.$store.commit('setUserMessage', 'Error whilst deleting post, please try again later.');
           })
       },
       editPost(postId) {
