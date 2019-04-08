@@ -27,7 +27,8 @@
           </div>
         </md-card-content>
         <md-card-actions>
-          <md-button class="md-primary md-raised" @click="editPostSubmit(post._id, post)">Submit</md-button>
+          <md-button class="md-primary md-raised"
+            @click="editPostSubmit(post._id, post)">Submit</md-button>
         </md-card-actions>
       </md-card>
     </form>
@@ -35,45 +36,45 @@
 </template>
 
 <script>
-  export default {
-    name: 'Post',
-    data() {
-      return {
-        post: {},
-        showSpinner: false,
-      }
-    },
-    created() {
-      const currentUrl = window.location.pathname.split('/')
-      const postId = currentUrl[2]
+export default {
+  name: 'Post',
+  data() {
+    return {
+      post: {},
+      showSpinner: false,
+    };
+  },
+  created() {
+    const currentUrl = window.location.pathname.split('/');
+    const postId = currentUrl[2];
+    this.$axios
+      .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
+      .then((response) => {
+        this.post = response.data;
+      })
+      .catch(() => {
+        this.$store.commit('setUserMessage', 'Error whilst retrieving post, please try again later.');
+      });
+  },
+  methods: {
+    editPostSubmit(postId, formData) {
+      this.showSpinner = true;
       this.$axios
-        .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
-        .then(response => {
-          this.post = response.data
+        .put(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`, {
+          title: formData.title,
+          body: formData.body,
+          tags: formData.tags.split(','),
+        })
+        .then(() => {
+          window.location.href = `/post/${postId}`;
         })
         .catch(() => {
-          this.$store.commit('setUserMessage', 'Error whilst retrieving post, please try again later.');
-        })
+          this.showSpinner = false;
+          this.$store.commit('setUserMessage', 'Error whilst submitting edited post, please try again later.');
+        });
     },
-    methods: {
-      editPostSubmit(postId, formData) {
-        this.showSpinner = true;
-        this.$axios
-          .put(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`, {
-            title: formData.title,
-            body: formData.body,
-            tags: formData.tags.split(',')
-          })
-          .then(() => {
-            window.location.href = `/post/${postId}`
-          })
-          .catch(() => {
-            this.showSpinner = false;
-            this.$store.commit('setUserMessage', 'Error whilst submitting edited post, please try again later.');
-          })
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>

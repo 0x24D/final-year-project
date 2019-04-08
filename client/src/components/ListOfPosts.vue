@@ -7,7 +7,8 @@
       <template v-if="this.posts.length > 0">
         <md-list>
           <md-list-item v-for="post in posts" :key="post._id">
-            <span class="md-list-item-text"><a :href="'/post/' + post._id">{{ post.title }}</a></span>
+            <span class="md-list-item-text">
+                <a :href="'/post/' + post._id">{{ post.title }}</a></span>
           </md-list-item>
         </md-list>
       </template>
@@ -22,27 +23,27 @@
 </template>
 
 <script>
-  export default {
-    name: 'ListOfPosts',
-    data() {
-      return {
-        posts: null,
-        showSpinner: true,
-      }
-    },
-    created() {
-      this.$axios
-        .get(`http://${window.location.hostname}:8081/api/v1/posts/`)
-        .then(response => {
-          this.showSpinner = false;
-          this.posts = response.data
-        })
-        .catch(() => {
-          this.showSpinner = false;
-          this.$store.commit('setUserMessage', 'Error whilst retrieving posts, please try again later.');
-        })
-    }
-  }
+export default {
+  name: 'ListOfPosts',
+  data() {
+    return {
+      posts: null,
+      showSpinner: true,
+    };
+  },
+  created() {
+    this.$axios
+      .get(`http://${window.location.hostname}:8081/api/v1/posts/`)
+      .then((response) => {
+        this.showSpinner = false;
+        this.posts = response.data;
+      })
+      .catch(() => {
+        this.showSpinner = false;
+        this.$store.commit('setUserMessage', 'Error whilst retrieving posts, please try again later.');
+      });
+  },
+};
 </script>
 
 <style scoped>

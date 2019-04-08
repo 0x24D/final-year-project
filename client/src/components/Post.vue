@@ -38,47 +38,47 @@
 </template>
 
 <script>
-  export default {
-    name: 'Post',
-    data() {
-      return {
-        post: {},
-        showSpinner: true,
-      }
-    },
-    created() {
-      const currentUrl = window.location.pathname.split('/')
-      const postId = currentUrl[2]
+export default {
+  name: 'Post',
+  data() {
+    return {
+      post: {},
+      showSpinner: true,
+    };
+  },
+  created() {
+    const currentUrl = window.location.pathname.split('/');
+    const postId = currentUrl[2];
+    this.$axios
+      .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
+      .then((response) => {
+        this.post = response.data;
+        this.showSpinner = false;
+      })
+      .catch(() => {
+        this.$store.commit('setUserMessage', 'Error whilst retrieving post, please try again later.');
+      });
+  },
+  methods: {
+    deletePost(postId) {
+      this.showSpinner = true;
       this.$axios
-        .get(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
-        .then(response => {
-          this.post = response.data
+        .delete(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
+        .then(() => {
+          this.post = [];
           this.showSpinner = false;
+          window.location.href = '/allPosts';
         })
         .catch(() => {
-          this.$store.commit('setUserMessage', 'Error whilst retrieving post, please try again later.');
-        })
+          this.showSpinner = false;
+          this.$store.commit('setUserMessage', 'Error whilst deleting post, please try again later.');
+        });
     },
-    methods: {
-      deletePost(postId) {
-        this.showSpinner = true;
-        this.$axios
-          .delete(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`)
-          .then(() => {
-            this.post = []
-            this.showSpinner = false;
-            window.location.href = '/allPosts'
-          })
-          .catch(() => {
-            this.showSpinner = false;
-            this.$store.commit('setUserMessage', 'Error whilst deleting post, please try again later.');
-          })
-      },
-      editPost(postId) {
-        window.location.href = `/editPost/${postId}`
-      }
-    }
-  }
+    editPost(postId) {
+      window.location.href = `/editPost/${postId}`;
+    },
+  },
+};
 </script>
 
 <style scoped>

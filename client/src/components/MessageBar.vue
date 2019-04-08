@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'MessageBar'
-  }
+export default {
+  name: 'MessageBar',
+};
 </script>

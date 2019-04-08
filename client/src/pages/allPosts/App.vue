@@ -7,16 +7,16 @@
 </template>
 
 <script>
-  import ListOfPosts from '../../components/ListOfPosts.vue'
-  import MessageBar from '../../components/MessageBar.vue'
-  import NavigationBar from '../../components/NavigationBar.vue'
+import ListOfPosts from '../../components/ListOfPosts.vue';
+import MessageBar from '../../components/MessageBar.vue';
+import NavigationBar from '../../components/NavigationBar.vue';
 
-  export default {
-    name: 'app',
-    components: {
-      ListOfPosts,
-      MessageBar,
-      NavigationBar
-    }
-  }
+export default {
+  name: 'app',
+  components: {
+    ListOfPosts,
+    MessageBar,
+    NavigationBar,
+  },
+};
 </script>

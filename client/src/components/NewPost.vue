@@ -27,7 +27,8 @@
           </div>
         </md-card-content>
         <md-card-actions>
-          <md-button class="md-primary md-raised" @click="newPostSubmit(post._id, post)">Submit</md-button>
+          <md-button class="md-primary md-raised"
+            @click="newPostSubmit(post._id, post)">Submit</md-button>
         </md-card-actions>
       </md-card>
     </form>
@@ -35,37 +36,37 @@
 </template>
 
 <script>
-  export default {
-    name: 'Post',
-    data() {
-      return {
-        post: {
-          title: '',
-          body: '',
-          tags: []
-        },
-        showSpinner: false,
-      }
+export default {
+  name: 'Post',
+  data() {
+    return {
+      post: {
+        title: '',
+        body: '',
+        tags: [],
+      },
+      showSpinner: false,
+    };
+  },
+  methods: {
+    newPostSubmit(postId, formData) {
+      this.showSpinner = true;
+      this.$axios
+        .post(`http://${window.location.hostname}:8081/api/v1/posts/`, {
+          title: formData.title,
+          body: formData.body,
+          tags: formData.tags.split(','),
+        })
+        .then(() => {
+          window.location.href = '/allPosts';
+        })
+        .catch(() => {
+          this.showSpinner = false;
+          this.$store.commit('setUserMessage', 'Error whilst submitting new post, please try again later.');
+        });
     },
-    methods: {
-      newPostSubmit(postId, formData) {
-        this.showSpinner = true;
-        this.$axios
-          .post(`http://${window.location.hostname}:8081/api/v1/posts/`, {
-            title: formData.title,
-            body: formData.body,
-            tags: formData.tags.split(',')
-          })
-          .then(() => {
-            window.location.href = '/allPosts'
-          })
-          .catch(() => {
-            this.showSpinner = false;
-            this.$store.commit('setUserMessage', 'Error whilst submitting new post, please try again later.');
-          })
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>
