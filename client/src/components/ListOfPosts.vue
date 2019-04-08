@@ -1,7 +1,7 @@
 <template>
   <div id="posts">
     <template v-if="showSpinner">
-      <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+      <md-progress-spinner md-mode="indeterminate" class="centered"></md-progress-spinner>
     </template>
     <template v-if="this.posts">
       <template v-if="this.posts.length > 0">
@@ -44,3 +44,13 @@
     }
   }
 </script>
+
+<style scoped>
+.centered {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>

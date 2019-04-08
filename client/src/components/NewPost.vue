@@ -1,9 +1,9 @@
 <template>
   <div id="newPost">
     <template v-if="showSpinner">
-      <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+      <md-progress-spinner md-mode="indeterminate" class="centered"></md-progress-spinner>
     </template>
-    <form novalidate class="md-layout" @submit.prevent>
+    <form novalidate class="md-layout md-alignment-top-center" @submit.prevent>
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
           <div class="md-title">New Post</div>
@@ -67,3 +67,13 @@
     }
   }
 </script>
+
+<style scoped>
+.centered {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
