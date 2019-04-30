@@ -58,7 +58,7 @@ export default {
           tags: formData.tags ? formData.tags.split(',') : formData.tags,
         })
         .then(() => {
-          window.location.href = '/allPosts';
+          window.location.href = '/all';
         })
         .catch(() => {
           this.showSpinner = false;

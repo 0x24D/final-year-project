@@ -63,7 +63,7 @@ export default {
         .put(`http://${window.location.hostname}:8081/api/v1/posts/${postId}`, {
           title: formData.title,
           body: formData.body,
-          tags: formData.tags ? formData.tags.split(',') : formData.tags,
+          tags: Array.isArray(formData.tags) ? formData.tags : formData.tags.split(','),
         })
         .then(() => {
           window.location.href = `/view/${postId}`;
